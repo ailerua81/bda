@@ -1,0 +1,2 @@
+Customer#1	1	500.0	0
+Customer#2	2	475.0	0

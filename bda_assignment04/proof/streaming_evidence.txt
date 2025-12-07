@@ -1,0 +1,14 @@
+================================================================================
+STREAMING EVIDENCE
+================================================================================
+
+Output directories:
+  - /home/aurel/bda_labs/bda_assignment04/outputs/hourly_trip_count
+  - /home/aurel/bda_labs/bda_assignment04/outputs/region_trip_count
+  - /home/aurel/bda_labs/bda_assignment04/outputs/trending_arrivals
+
+Checkpoint directories:
+  - /home/aurel/bda_labs/bda_assignment04/checkpoints/hourly_trip_count
+  - /home/aurel/bda_labs/bda_assignment04/checkpoints/region_trip_count
+  - /home/aurel/bda_labs/bda_assignment04/checkpoints/trending_arrivals
+
