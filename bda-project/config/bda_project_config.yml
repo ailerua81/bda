@@ -1,0 +1,24 @@
+project:
+  name: "Bitcoin Price Movement Prediction"
+  team_size: 1
+  
+data:
+  blocks_dir: "data/blocks/blocks"
+  blocks_archive: "data/btc_blocks_pruned_1GiB.tar.gz"
+  prices_dir: "data/prices"
+  
+prediction:
+  target: "direction"  # direction ou magnitude
+  horizon_minutes: 60  # prédire le mouvement à 60 min
+  
+spark:
+  app_name: "BTC-Predictor"
+  master: "local[*]"
+  executor_memory: "4g"
+  driver_memory: "4g"
+  
+paths:
+  etl_output: "data/processed"
+  models: "models"
+  metrics: "logs/project_metrics_log.csv"
+  evidence: "evidence"
