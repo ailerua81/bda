@@ -1,0 +1,7 @@
+[text]
+1	Clerk#000000001
+2	Clerk#000000002
+[parquet]
+1	Clerk#000000001
+1	Clerk#000000001
+2	Clerk#000000002

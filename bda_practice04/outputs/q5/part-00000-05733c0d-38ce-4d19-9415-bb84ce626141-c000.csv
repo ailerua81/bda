@@ -1,0 +1,5 @@
+n_nationkey,n_name,ship_month,shipment_count
+2,CANADA,1995-03,1
+2,CANADA,1995-05,1
+1,UNITED STATES,1995-03,2
+1,UNITED STATES,1995-04,1

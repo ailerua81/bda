@@ -1,0 +1,8 @@
+[text]
+1	Part#1	Supplier#1
+1	Part#2	Supplier#2
+2	Part#1	Supplier#1
+[parquet]
+1	Part#1	Supplier#1
+1	Part#2	Supplier#2
+2	Part#1	Supplier#1

@@ -1,0 +1,4 @@
+v1
+{"path":"file:///home/aurel/bda_labs/bda_practice04/data/taxi-data/part-2021-01-01-0000.csv","timestamp":1763735170886,"batchId":0}
+{"path":"file:///home/aurel/bda_labs/bda_practice04/data/taxi-data/part-2021-01-01-0001.csv","timestamp":1763735170900,"batchId":0}
+{"path":"file:///home/aurel/bda_labs/bda_practice04/data/taxi-data/part-2021-01-01-0002.csv","timestamp":1763735170906,"batchId":0}
