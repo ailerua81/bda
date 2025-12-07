@@ -1,0 +1,128 @@
+== Physical Plan ==
+AdaptiveSparkPlan (21)
++- == Final Plan ==
+   ResultQueryStage (14)
+   +- TakeOrderedAndProject (13)
+      +- * HashAggregate (12)
+         +- AQEShuffleRead (11)
+            +- ShuffleQueryStage (10), Statistics(sizeInBytes=376.3 KiB, rowCount=1.15E+4)
+               +- Exchange (9)
+                  +- * HashAggregate (8)
+                     +- Generate (7)
+                        +- * Project (6)
+                           +- TableCacheQueryStage (5), Statistics(sizeInBytes=1206.4 KiB, rowCount=4.00E+4)
+                              +- InMemoryTableScan (1)
+                                    +- InMemoryRelation (2)
+                                          +- * Project (4)
+                                             +- Scan text  (3)
++- == Initial Plan ==
+   TakeOrderedAndProject (20)
+   +- HashAggregate (19)
+      +- Exchange (18)
+         +- HashAggregate (17)
+            +- Generate (16)
+               +- Project (15)
+                  +- InMemoryTableScan (1)
+                        +- InMemoryRelation (2)
+                              +- * Project (4)
+                                 +- Scan text  (3)
+
+
+(1) InMemoryTableScan
+Output [1]: [line#2]
+Arguments: [line#2]
+
+(2) InMemoryRelation
+Arguments: [line#2], StorageLevel(disk, memory, deserialized, 1 replicas)
+
+(3) Scan text 
+Output [1]: [value#0]
+Batched: false
+Location: InMemoryFileIndex [file:/home/aurel/bda_labs/bda_practice01/data/tiny_shakespeare.txt]
+ReadSchema: struct<value:string>
+
+(4) Project [codegen id : 1]
+Output [1]: [value#0 AS line#2]
+Input [1]: [value#0]
+
+(5) TableCacheQueryStage
+Output [1]: [line#2]
+Arguments: 0
+
+(6) Project [codegen id : 1]
+Output [1]: [split(regexp_replace(lower(line#2), [^a-z]+,  , 1), \s+, -1) AS tokens#129]
+Input [1]: [line#2]
+
+(7) Generate
+Input [1]: [tokens#129]
+Arguments: explode(filter(tokens#129, lambdafunction(NOT (lambda x#131 = ), lambda x#131, false))), false, [token#132]
+
+(8) HashAggregate [codegen id : 2]
+Input [1]: [token#132]
+Keys [1]: [token#132]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#153L]
+Results [2]: [token#132, count#154L]
+
+(9) Exchange
+Input [2]: [token#132, count#154L]
+Arguments: hashpartitioning(token#132, 200), ENSURE_REQUIREMENTS, [plan_id=417]
+
+(10) ShuffleQueryStage
+Output [2]: [token#132, count#154L]
+Arguments: 1
+
+(11) AQEShuffleRead
+Input [2]: [token#132, count#154L]
+Arguments: coalesced
+
+(12) HashAggregate [codegen id : 3]
+Input [2]: [token#132, count#154L]
+Keys [1]: [token#132]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#135L]
+Results [2]: [token#132, count(1)#135L AS count#133L]
+
+(13) TakeOrderedAndProject
+Input [2]: [token#132, count#133L]
+Arguments: 10, [count#133L DESC NULLS LAST, token#132 ASC NULLS FIRST], [token#132, count#133L]
+
+(14) ResultQueryStage
+Output [2]: [token#132, count#133L]
+Arguments: 2
+
+(15) Project
+Output [1]: [split(regexp_replace(lower(line#2), [^a-z]+,  , 1), \s+, -1) AS tokens#129]
+Input [1]: [line#2]
+
+(16) Generate
+Input [1]: [tokens#129]
+Arguments: explode(filter(tokens#129, lambdafunction(NOT (lambda x#131 = ), lambda x#131, false))), false, [token#132]
+
+(17) HashAggregate
+Input [1]: [token#132]
+Keys [1]: [token#132]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#153L]
+Results [2]: [token#132, count#154L]
+
+(18) Exchange
+Input [2]: [token#132, count#154L]
+Arguments: hashpartitioning(token#132, 200), ENSURE_REQUIREMENTS, [plan_id=369]
+
+(19) HashAggregate
+Input [2]: [token#132, count#154L]
+Keys [1]: [token#132]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#135L]
+Results [2]: [token#132, count(1)#135L AS count#133L]
+
+(20) TakeOrderedAndProject
+Input [2]: [token#132, count#133L]
+Arguments: 10, [count#133L DESC NULLS LAST, token#132 ASC NULLS FIRST], [token#132, count#133L]
+
+(21) AdaptiveSparkPlan
+Output [2]: [token#132, count#133L]
+Arguments: isFinalPlan=true
+
+
